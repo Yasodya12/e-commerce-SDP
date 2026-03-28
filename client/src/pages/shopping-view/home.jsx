@@ -1,17 +1,11 @@
 import { Button } from "@/components/ui/button";
 import {
-    Airplay,
     BabyIcon,
     ChevronLeftIcon,
     ChevronRightIcon,
-    CloudLightning,
-    Heater,
-    Images,
-    Shirt,
+    Footprints,
+    Sparkles,
     ShirtIcon,
-    ShoppingBasket,
-    UmbrellaIcon,
-    WashingMachine,
     WatchIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
@@ -29,20 +23,75 @@ import ProductDetailsDialog from "@/components/shopping-view/product-details";
 import { getFeatureImages } from "@/store/common-slice";
 
 const categoriesWithIcon = [
-    { id: "men", label: "Men", icon: ShirtIcon },
-    { id: "women", label: "Women", icon: CloudLightning },
-    { id: "kids", label: "Kids", icon: BabyIcon },
-    { id: "accessories", label: "Accessories", icon: WatchIcon },
-    { id: "footwear", label: "Footwear", icon: UmbrellaIcon },
+    {
+        id: "men",
+        label: "Men",
+        icon: ShirtIcon,
+        image: "https://images.unsplash.com/photo-1516257984-b1b4d707412e?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "women",
+        label: "Women",
+        icon: Sparkles,
+        image: "https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "kids",
+        label: "Kids",
+        icon: BabyIcon,
+        image: "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "accessories",
+        label: "Accessories",
+        icon: WatchIcon,
+        image: "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "footwear",
+        label: "Footwear",
+        icon: Footprints,
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
+    },
 ];
 
 const brandsWithIcon = [
-    { id: "nike", label: "Nike", icon: Shirt },
-    { id: "adidas", label: "Adidas", icon: WashingMachine },
-    { id: "puma", label: "Puma", icon: ShoppingBasket },
-    { id: "levi", label: "Levi's", icon: Airplay },
-    { id: "zara", label: "Zara", icon: Images },
-    { id: "h&m", label: "H&M", icon: Heater },
+    {
+        id: "nike",
+        label: "Nike",
+        logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/nike.svg",
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "adidas",
+        label: "Adidas",
+        logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/adidas.svg",
+        image: "https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "puma",
+        label: "Puma",
+        logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/puma.svg",
+        image: "https://images.unsplash.com/photo-1460353581641-37baddab0fa2?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "levi",
+        label: "Levi's",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/7/75/Levi%27s_logo.svg",
+        image: "https://images.unsplash.com/photo-1602293589930-45aad59ba3ab?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "zara",
+        label: "Zara",
+        logo: "https://cdn.jsdelivr.net/npm/simple-icons@v11/icons/zara.svg",
+        image: "https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1200&q=80",
+    },
+    {
+        id: "h&m",
+        label: "H&M",
+        logo: "https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg",
+        image: "https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&w=1200&q=80",
+    },
 ];
 function ShoppingHome() {
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -122,7 +171,8 @@ function ShoppingHome() {
     return (
         <div className="fade-up flex min-h-screen flex-col gap-12">
             <div className="relative h-[420px] w-full overflow-hidden rounded-3xl border shadow-2xl sm:h-[560px]">
-                <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/50 via-black/20 to-transparent" />
+                <div className="absolute inset-0 z-10 bg-gradient-to-r from-black/80 via-black/45 to-black/10" />
+                <div className="absolute inset-0 z-10 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
                 {featureImageList && featureImageList.length > 0
                     ? featureImageList.map((slide, index) => (
                           <img
@@ -132,21 +182,36 @@ function ShoppingHome() {
                                   index === currentSlide
                                       ? "opacity-100"
                                       : "opacity-0"
-                              } absolute left-0 top-0 h-full w-full object-cover transition-opacity duration-700`}
+                              } absolute left-0 top-0 h-full w-full scale-[1.03] object-cover transition-opacity duration-700`}
                           />
                       ))
                     : null}
-                <div className="absolute bottom-6 left-6 z-20 max-w-lg text-white sm:bottom-10 sm:left-10">
-                    <p className="text-xs uppercase tracking-[0.2em] text-white/90">
+                <div className="absolute bottom-6 left-6 z-20 w-[calc(100%-3rem)] max-w-3xl text-white sm:bottom-10 sm:left-10 sm:w-[calc(100%-5rem)]">
+                    <p className="inline-flex rounded-full border border-white/35 bg-black/25 px-3 py-1 text-xs font-bold uppercase tracking-[0.2em] text-white/95 backdrop-blur-sm">
                         New Season Drop
                     </p>
-                    <h1 className="mt-3 text-4xl leading-tight sm:text-5xl">
-                        Crafted essentials for every day and every mood.
+                    <h1 className="mt-4 text-4xl leading-tight sm:text-6xl md:text-7xl">
+                        Dress bold. Move easy. Own every room.
                     </h1>
-                    <p className="mt-3 text-sm text-white/85 sm:text-base">
+                    <p className="mt-4 max-w-2xl text-sm font-medium text-white/90 sm:text-lg">
                         Explore clean silhouettes, comfort-first fits, and
                         accessories that elevate your look instantly.
                     </p>
+                    <div className="mt-6 flex flex-wrap gap-3">
+                        <Button
+                            onClick={() => navigate("/shop/listing")}
+                            className="h-11 rounded-full bg-accent px-6 text-sm font-bold text-accent-foreground hover:bg-accent/90"
+                        >
+                            Shop Collection
+                        </Button>
+                        <Button
+                            variant="outline"
+                            onClick={() => navigate("/shop/search")}
+                            className="h-11 rounded-full border-white/55 bg-white/12 px-6 text-sm font-bold text-white backdrop-blur-sm transition-colors hover:border-white hover:bg-white hover:text-black"
+                        >
+                            Explore Trends
+                        </Button>
+                    </div>
                 </div>
                 <Button
                     variant="outline"
@@ -158,7 +223,7 @@ function ShoppingHome() {
                                 featureImageList.length,
                         )
                     }
-                    className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/85"
+                    className="absolute left-4 top-1/2 z-20 -translate-y-1/2 rounded-full border-0 bg-white/90"
                 >
                     <ChevronLeftIcon className="w-4 h-4" />
                 </Button>
@@ -171,18 +236,18 @@ function ShoppingHome() {
                                 (prevSlide + 1) % featureImageList.length,
                         )
                     }
-                    className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full bg-white/85"
+                    className="absolute right-4 top-1/2 z-20 -translate-y-1/2 rounded-full border-0 bg-white/90"
                 >
                     <ChevronRightIcon className="w-4 h-4" />
                 </Button>
             </div>
-            <section className="glass-panel p-6 sm:p-8">
-                <div className="mx-auto px-1">
-                    <h2 className="mb-8 text-3xl text-center">
+            <section className="relative">
+                <div className="relative mx-auto">
+                    <h2 className="mb-8 text-center text-3xl">
                         Shop by category
                     </h2>
-                    <div className="stagger grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-5">
-                        {categoriesWithIcon.map((categoryItem) => (
+                    <div className="stagger grid grid-cols-2 gap-4 md:grid-cols-6">
+                        {categoriesWithIcon.map((categoryItem, index) => (
                             <Card
                                 key={categoryItem.id}
                                 onClick={() =>
@@ -191,12 +256,29 @@ function ShoppingHome() {
                                         "category",
                                     )
                                 }
-                                className="cursor-pointer border-0 bg-secondary/70 transition-all hover:-translate-y-1 hover:shadow-lg"
+                                className={`cursor-pointer border border-white/20 bg-white/10 text-white backdrop-blur-md transition-all hover:-translate-y-1 hover:border-white/45 hover:bg-white/20 hover:shadow-2xl ${
+                                    index === 0
+                                        ? "md:col-span-3"
+                                        : index === 1
+                                          ? "md:col-span-3"
+                                          : "md:col-span-2"
+                                } overflow-hidden rounded-3xl`}
                             >
-                                <CardContent className="flex flex-col items-center justify-center p-6">
-                                    <categoryItem.icon className="mb-4 h-12 w-12 text-primary" />
-                                    <span className="font-semibold">
+                                <CardContent className="relative flex min-h-[140px] flex-col items-start justify-end overflow-hidden rounded-3xl p-6 md:min-h-[180px]">
+                                    <img
+                                        src={categoryItem.image}
+                                        alt={categoryItem.label}
+                                        className="absolute inset-0 h-full w-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-black/10" />
+                                    <div className="relative mb-4 rounded-full bg-white/15 p-2.5 backdrop-blur-sm">
+                                        <categoryItem.icon className="h-8 w-8 text-white" />
+                                    </div>
+                                    <span className="relative text-lg font-bold tracking-tight text-white">
                                         {categoryItem.label}
+                                    </span>
+                                    <span className="relative mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
+                                        Explore Now
                                     </span>
                                 </CardContent>
                             </Card>
@@ -205,10 +287,10 @@ function ShoppingHome() {
                 </div>
             </section>
 
-            <section className="glass-panel p-6 sm:p-8">
-                <div className="mx-auto px-1">
+            <section className="relative">
+                <div className="relative mx-auto">
                     <h2 className="mb-8 text-center text-3xl">Shop by Brand</h2>
-                    <div className="stagger grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
+                    <div className="stagger grid grid-cols-2 gap-4 md:grid-cols-6">
                         {brandsWithIcon.map((brandItem) => (
                             <Card
                                 key={brandItem.id}
@@ -218,12 +300,27 @@ function ShoppingHome() {
                                         "brand",
                                     )
                                 }
-                                className="cursor-pointer border-0 bg-secondary/70 transition-all hover:-translate-y-1 hover:shadow-lg"
+                                className="cursor-pointer border border-white/20 bg-white/10 text-white backdrop-blur-md transition-all hover:-translate-y-1 hover:border-white/45 hover:bg-white/20 hover:shadow-2xl md:col-span-2 overflow-hidden rounded-3xl"
                             >
-                                <CardContent className="flex flex-col items-center justify-center p-6">
-                                    <brandItem.icon className="mb-4 h-12 w-12 text-primary" />
-                                    <span className="font-semibold">
+                                <CardContent className="relative flex min-h-[140px] flex-col items-start justify-end overflow-hidden rounded-3xl p-6 md:min-h-[180px]">
+                                    <img
+                                        src={brandItem.image}
+                                        alt={brandItem.label}
+                                        className="absolute inset-0 h-full w-full object-cover"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/35 to-black/10" />
+                                    <div className="relative mb-4 rounded-full bg-white/90 p-2.5 backdrop-blur-sm">
+                                        <img
+                                            src={brandItem.logo}
+                                            alt={`${brandItem.label} logo`}
+                                            className="h-7 w-7 object-contain"
+                                        />
+                                    </div>
+                                    <span className="relative text-lg font-bold tracking-tight text-white">
                                         {brandItem.label}
+                                    </span>
+                                    <span className="relative mt-1 text-xs font-semibold uppercase tracking-[0.14em] text-white/80">
+                                        Explore Now
                                     </span>
                                 </CardContent>
                             </Card>
