@@ -11,8 +11,8 @@ function AdminHeader({ setOpen }) {
     }
 
     return (
-        <header className="sticky top-0 z-30 pb-4 pt-2">
-            <div className="app-shell glass-panel flex items-center justify-between px-4 py-3 md:px-5">
+        <header className="px-4 pb-4 pt-4 md:px-7">
+            <div className="glass-panel flex items-center justify-between px-4 py-3 md:px-5">
                 <Button
                     onClick={() => setOpen(true)}
                     variant="outline"
