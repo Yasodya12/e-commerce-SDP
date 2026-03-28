@@ -43,7 +43,7 @@ function App() {
     console.log(isLoading, user);
 
     return (
-        <div className="flex min-h-screen flex-col overflow-hidden bg-transparent">
+        <div className="flex min-h-screen flex-col bg-transparent">
             <Routes>
                 <Route
                     path="/"

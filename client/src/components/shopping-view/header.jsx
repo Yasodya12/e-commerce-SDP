@@ -54,7 +54,7 @@ function MenuItems() {
             {shoppingViewHeaderMenuItems.map((menuItem) => (
                 <Label
                     onClick={() => handleNavigate(menuItem)}
-                    className="cursor-pointer text-sm font-semibold uppercase tracking-[0.08em] text-foreground/80 transition-colors hover:text-primary"
+                    className="cursor-pointer text-xs font-bold uppercase tracking-[0.08em] text-foreground/80 transition-colors hover:text-primary"
                     key={menuItem.id}
                 >
                     {menuItem.label}
@@ -119,7 +119,13 @@ function HeaderRightContent() {
                         </AvatarFallback>
                     </Avatar>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent side="right" className="w-56">
+                <DropdownMenuContent
+                    side="bottom"
+                    align="end"
+                    sideOffset={10}
+                    collisionPadding={12}
+                    className="z-50 w-56 max-w-[calc(100vw-1.5rem)] overflow-auto"
+                >
                     <DropdownMenuLabel>
                         Logged in as {user?.userName}
                     </DropdownMenuLabel>
@@ -146,40 +152,44 @@ function ShoppingHeader() {
 
     return (
         <header className="sticky top-0 z-40 w-full pb-4 pt-2">
-            <div className="app-shell glass-panel flex h-16 w-full items-center justify-between px-4 md:px-6">
-                <Link to="/shop/home" className="flex items-center gap-2">
-                    <span className="rounded-full bg-primary p-2 text-primary-foreground shadow-lg shadow-primary/30">
-                        <Gem className="h-4 w-4" />
-                    </span>
-                    <span className="text-lg font-semibold tracking-tight">
-                        UrbanNest
-                    </span>
-                </Link>
-                <Sheet>
-                    <SheetTrigger asChild>
-                        <Button
-                            variant="outline"
-                            size="icon"
-                            className="lg:hidden"
+            <div className="app-shell px-4 md:px-6">
+                <div className="glass-panel flex h-16 w-full items-center justify-between px-4 md:px-6">
+                    <Link to="/shop/home" className="flex items-center gap-2">
+                        <span className="rounded-full bg-primary p-2 text-primary-foreground shadow-lg shadow-primary/30">
+                            <Gem className="h-4 w-4" />
+                        </span>
+                        <span className="text-lg font-semibold tracking-tight">
+                            UrbanNest
+                        </span>
+                    </Link>
+                    <Sheet>
+                        <SheetTrigger asChild>
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                className="lg:hidden"
+                            >
+                                <Menu className="h-6 w-6" />
+                                <span className="sr-only">
+                                    Toggle header menu
+                                </span>
+                            </Button>
+                        </SheetTrigger>
+                        <SheetContent
+                            side="left"
+                            className="w-full max-w-xs bg-background/95"
                         >
-                            <Menu className="h-6 w-6" />
-                            <span className="sr-only">Toggle header menu</span>
-                        </Button>
-                    </SheetTrigger>
-                    <SheetContent
-                        side="left"
-                        className="w-full max-w-xs bg-background/95"
-                    >
+                            <MenuItems />
+                            <HeaderRightContent />
+                        </SheetContent>
+                    </Sheet>
+                    <div className="hidden lg:block">
                         <MenuItems />
-                        <HeaderRightContent />
-                    </SheetContent>
-                </Sheet>
-                <div className="hidden lg:block">
-                    <MenuItems />
-                </div>
+                    </div>
 
-                <div className="hidden lg:block">
-                    <HeaderRightContent />
+                    <div className="hidden lg:block">
+                        <HeaderRightContent />
+                    </div>
                 </div>
             </div>
         </header>
