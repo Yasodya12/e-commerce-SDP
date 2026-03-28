@@ -9,7 +9,7 @@ function ShoppingProductTile({
     handleAddtoCart,
     variant = "default",
 }) {
-    const isFeaturedVariant = variant === "featured";
+    const isFeaturedVariant = true;
 
     if (isFeaturedVariant) {
         return (

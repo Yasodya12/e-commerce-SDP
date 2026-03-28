@@ -70,17 +70,19 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         setReviewMsg("");
     }
 
-    function handleAddReview() {
-        dispatch(
-            addReview({
-                productId: productDetails?._id,
-                userId: user?.id,
-                userName: user?.userName,
-                reviewMessage: reviewMsg,
-                reviewValue: rating,
-            }),
-        ).then((data) => {
-            if (data.payload.success) {
+    async function handleAddReview() {
+        try {
+            const response = await dispatch(
+                addReview({
+                    productId: productDetails?._id,
+                    userId: user?.id,
+                    userName: user?.userName,
+                    reviewMessage: reviewMsg,
+                    reviewValue: rating,
+                }),
+            ).unwrap();
+
+            if (response?.success) {
                 setRating(0);
                 setReviewMsg("");
                 dispatch(getReviews(productDetails?._id));
@@ -88,12 +90,21 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                     title: "Review added successfully!",
                 });
             }
-        });
+        } catch (error) {
+            toast({
+                title:
+                    error?.response?.data?.message ||
+                    "Unable to submit your review right now.",
+                variant: "destructive",
+            });
+        }
     }
 
     useEffect(() => {
-        if (productDetails !== null) dispatch(getReviews(productDetails?._id));
-    }, [productDetails]);
+        if (open && productDetails?._id) {
+            dispatch(getReviews(productDetails._id));
+        }
+    }, [dispatch, open, productDetails?._id]);
 
     console.log(reviews, "reviews");
 
