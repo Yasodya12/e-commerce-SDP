@@ -107,8 +107,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
 
     return (
         <Dialog open={open} onOpenChange={handleDialogClose}>
-            <DialogContent className="left-0 top-0 z-50 grid h-[100dvh] max-h-[100dvh] w-screen max-w-none translate-x-0 translate-y-0 grid-cols-1 gap-0 overflow-hidden rounded-none border-0 bg-background p-0 shadow-2xl lg:grid-cols-2">
-                <div className="relative h-full min-h-0 overflow-hidden bg-secondary/40">
+            <DialogContent className="left-1/2 top-1/2 z-50 grid h-[92dvh] max-h-[92dvh] w-[min(96vw,1280px)] max-w-none translate-x-[-50%] translate-y-[-50%] grid-cols-1 gap-0 overflow-hidden rounded-3xl border border-border/60 bg-white p-0 shadow-2xl lg:grid-cols-[1.05fr_0.95fr]">
+                <div className="relative h-full min-h-0 overflow-hidden bg-gradient-to-br from-primary/10 via-secondary/40 to-white">
                     <img
                         src={productDetails?.image}
                         alt={productDetails?.title}
@@ -117,48 +117,61 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                         className="h-full w-full object-cover"
                     />
                 </div>
-                <div className="h-full min-h-0 overflow-y-auto px-4 pb-6 pt-14 sm:px-6 lg:px-8">
-                    <div className="space-y-5">
+                <div className="h-full min-h-0 overflow-y-auto bg-white px-5 pb-6 pt-10 sm:px-7 lg:px-8">
+                    <div className="space-y-6">
                         <div>
-                            <h1 className="text-3xl">
+                            <p className="inline-flex rounded-full border border-primary/20 bg-secondary px-3 py-1 text-xs font-bold uppercase tracking-[0.14em] text-foreground/75">
+                                Product Details
+                            </p>
+                            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
                                 {productDetails?.title}
                             </h1>
-                            <p className="mb-5 mt-4 text-base text-muted-foreground sm:text-lg">
+                            <p className="mb-5 mt-4 text-base leading-relaxed text-foreground/75 sm:text-lg">
                                 {productDetails?.description}
                             </p>
                         </div>
-                        <div className="flex items-center justify-between">
-                            <p
-                                className={`text-3xl font-bold text-primary ${
-                                    productDetails?.salePrice > 0
-                                        ? "line-through"
-                                        : ""
-                                }`}
-                            >
-                                ${productDetails?.price}
-                            </p>
-                            {productDetails?.salePrice > 0 ? (
-                                <p className="text-2xl font-bold text-primary">
-                                    ${productDetails?.salePrice}
+                        <div className="flex flex-wrap items-end justify-between gap-4 rounded-2xl border border-border/60 bg-secondary/30 p-4">
+                            <div>
+                                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-foreground/55">
+                                    Price
                                 </p>
-                            ) : null}
+                                <div className="mt-1 flex items-baseline gap-3">
+                                    <p
+                                        className={`text-3xl font-bold text-primary ${
+                                            productDetails?.salePrice > 0
+                                                ? "line-through"
+                                                : ""
+                                        }`}
+                                    >
+                                        ${productDetails?.price}
+                                    </p>
+                                    {productDetails?.salePrice > 0 ? (
+                                        <p className="text-2xl font-bold text-primary">
+                                            ${productDetails?.salePrice}
+                                        </p>
+                                    ) : null}
+                                </div>
+                            </div>
+                            <div className="rounded-full border border-border/60 bg-white px-3 py-1 text-sm font-semibold text-foreground/75">
+                                {productDetails?.totalStock} in stock
+                            </div>
                         </div>
-                        <div className="flex items-center gap-2 mt-2">
+                        <div className="flex items-center gap-2">
                             <div className="flex items-center gap-0.5">
                                 <StarRatingComponent rating={averageReview} />
                             </div>
-                            <span className="text-muted-foreground">
+                            <span className="text-sm text-foreground/65">
                                 ({averageReview.toFixed(2)})
                             </span>
                         </div>
-                        <div className="mt-5 mb-5">
+                        <div className="mt-5 mb-2">
                             {productDetails?.totalStock === 0 ? (
-                                <Button className="w-full cursor-not-allowed rounded-xl opacity-60">
+                                <Button className="w-full cursor-not-allowed rounded-xl border border-primary/25 bg-secondary/70 text-foreground opacity-60">
                                     Out of Stock
                                 </Button>
                             ) : (
                                 <Button
-                                    className="w-full rounded-xl"
+                                    className="w-full rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
                                     onClick={() =>
                                         handleAddToCart(
                                             productDetails?._id,
@@ -172,22 +185,24 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                         </div>
                         <Separator />
                         <div className="pr-1">
-                            <h2 className="mb-4 text-xl">Reviews</h2>
+                            <h2 className="mb-4 text-xl font-semibold tracking-tight text-foreground">
+                                Reviews
+                            </h2>
                             <div className="grid gap-6">
                                 {reviews && reviews.length > 0 ? (
                                     reviews.map((reviewItem) => (
                                         <div
-                                            className="flex gap-4 rounded-xl bg-secondary/60 p-3"
+                                            className="flex gap-4 rounded-2xl border border-border/60 bg-secondary/30 p-4"
                                             key={reviewItem._id}
                                         >
-                                            <Avatar className="w-10 h-10 border">
+                                            <Avatar className="h-10 w-10 border border-primary/20 bg-white">
                                                 <AvatarFallback>
                                                     {reviewItem?.userName[0].toUpperCase()}
                                                 </AvatarFallback>
                                             </Avatar>
                                             <div className="grid gap-1">
                                                 <div className="flex items-center gap-2">
-                                                    <h3 className="font-bold">
+                                                    <h3 className="font-semibold text-foreground">
                                                         {reviewItem?.userName}
                                                     </h3>
                                                 </div>
@@ -198,18 +213,20 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                                                         }
                                                     />
                                                 </div>
-                                                <p className="text-muted-foreground">
+                                                <p className="text-sm leading-relaxed text-foreground/70">
                                                     {reviewItem.reviewMessage}
                                                 </p>
                                             </div>
                                         </div>
                                     ))
                                 ) : (
-                                    <h1>No Reviews</h1>
+                                    <h1 className="text-foreground/60">
+                                        No Reviews
+                                    </h1>
                                 )}
                             </div>
-                            <div className="mt-10 flex flex-col gap-2 rounded-xl bg-white p-4 shadow-sm">
-                                <Label className="font-semibold">
+                            <div className="mt-10 flex flex-col gap-3 rounded-2xl border border-border/60 bg-white p-4 shadow-sm">
+                                <Label className="font-semibold text-foreground">
                                     Write a review
                                 </Label>
                                 <div className="flex gap-1">
@@ -229,7 +246,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                                 <Button
                                     onClick={handleAddReview}
                                     disabled={reviewMsg.trim() === ""}
-                                    className="rounded-xl"
+                                    className="rounded-xl bg-primary text-primary-foreground hover:bg-primary/90"
                                 >
                                     Submit
                                 </Button>

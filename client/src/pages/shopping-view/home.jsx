@@ -9,7 +9,7 @@ import {
     WatchIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     fetchAllFilteredProducts,
@@ -95,6 +95,7 @@ const brandsWithIcon = [
 ];
 function ShoppingHome() {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const featuredProductsRef = useRef(null);
     const { productList, productDetails } = useSelector(
         (state) => state.shopProducts,
     );
@@ -136,6 +137,15 @@ function ShoppingHome() {
                     title: "Product is added to cart",
                 });
             }
+        });
+    }
+
+    function scrollFeaturedProducts(direction) {
+        if (!featuredProductsRef.current) return;
+
+        featuredProductsRef.current.scrollBy({
+            left: direction * 420,
+            behavior: "smooth",
         });
     }
 
@@ -287,6 +297,54 @@ function ShoppingHome() {
                 </div>
             </section>
 
+            <section className="pb-2">
+                <div className="mx-auto px-1">
+                    <div className="mb-8 flex items-center justify-between gap-4">
+                        <h2 className="text-3xl">Featured Products</h2>
+                        <div className="flex gap-2">
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => scrollFeaturedProducts(-1)}
+                                className="rounded-full border-primary/30"
+                            >
+                                <ChevronLeftIcon className="h-4 w-4" />
+                            </Button>
+                            <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => scrollFeaturedProducts(1)}
+                                className="rounded-full border-primary/30"
+                            >
+                                <ChevronRightIcon className="h-4 w-4" />
+                            </Button>
+                        </div>
+                    </div>
+                    <div
+                        ref={featuredProductsRef}
+                        className="flex gap-6 overflow-x-auto scroll-smooth pb-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    >
+                        {productList && productList.length > 0
+                            ? productList.map((productItem) => (
+                                  <div
+                                      key={productItem._id}
+                                      className="w-[320px] shrink-0 snap-start sm:w-[360px]"
+                                  >
+                                      <ShoppingProductTile
+                                          handleGetProductDetails={
+                                              handleGetProductDetails
+                                          }
+                                          product={productItem}
+                                          handleAddtoCart={handleAddtoCart}
+                                          variant="featured"
+                                      />
+                                  </div>
+                              ))
+                            : null}
+                    </div>
+                </div>
+            </section>
+
             <section className="relative">
                 <div className="relative mx-auto">
                     <h2 className="mb-8 text-center text-3xl">Shop by Brand</h2>
@@ -325,28 +383,6 @@ function ShoppingHome() {
                                 </CardContent>
                             </Card>
                         ))}
-                    </div>
-                </div>
-            </section>
-
-            <section className="pb-2">
-                <div className="mx-auto px-1">
-                    <h2 className="mb-8 text-center text-3xl">
-                        Feature Products
-                    </h2>
-                    <div className="stagger grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                        {productList && productList.length > 0
-                            ? productList.map((productItem) => (
-                                  <ShoppingProductTile
-                                      key={productItem._id}
-                                      handleGetProductDetails={
-                                          handleGetProductDetails
-                                      }
-                                      product={productItem}
-                                      handleAddtoCart={handleAddtoCart}
-                                  />
-                              ))
-                            : null}
                     </div>
                 </div>
             </section>

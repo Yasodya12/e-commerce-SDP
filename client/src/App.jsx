@@ -17,6 +17,7 @@ import CheckAuth from "./components/common/check-auth";
 import UnauthPage from "./pages/unauth-page";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { checkAuth } from "./store/auth-slice";
 import { Skeleton } from "@/components/ui/skeleton";
 import PaypalReturnPage from "./pages/shopping-view/paypal-return";
@@ -28,6 +29,7 @@ function App() {
         (state) => state.auth,
     );
     const dispatch = useDispatch();
+    const location = useLocation();
 
     useEffect(() => {
         dispatch(checkAuth());
@@ -112,6 +114,15 @@ function App() {
                 <Route path="/unauth-page" element={<UnauthPage />} />
                 <Route path="*" element={<NotFound />} />
             </Routes>
+
+            {!location.pathname.startsWith("/auth") ? (
+                <footer className="mt-10 border-t border-border/60 bg-white/70 py-4">
+                    <div className="app-shell px-4 text-center text-sm text-muted-foreground md:px-6">
+                        © {new Date().getFullYear()} UrbanNest. All rights
+                        reserved.
+                    </div>
+                </footer>
+            ) : null}
         </div>
     );
 }
