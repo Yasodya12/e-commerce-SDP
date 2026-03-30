@@ -35,7 +35,7 @@ mongoose
 
 const app = express();
 
-const allowedOrigins = [CLIENT_URL, "https://e-commerce-sdp-git-main-yasodyarishika8-2927s-projects.vercel.app/"];
+const allowedOrigins = [CLIENT_URL, "https://e-commerce-sdp-git-main-yasodyarishika8-2927s-projects.vercel.app"];
 
 app.use(
     cors({
